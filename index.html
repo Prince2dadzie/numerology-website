@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Numerology Life Path Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Your Birth Date</h2>
+    <form id="numerologyForm">
+        <label for="birthDate">Birth Date:</label>
+        <input type="date" id="birthDate" required>
+        <button type="submit">Calculate Life Path Number</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateLifePath(birthDate) {
+            const dateParts = birthDate.split("-");
+            const sumDigits = dateParts.join("").split("").reduce((sum, digit) => sum + parseInt(digit), 0);
+            return reduceToSingleDigit(sumDigits);
+        }
+
+        function reduceToSingleDigit(number) {
+            while (number > 9 && number !== 11 && number !== 22 && number !== 33) {
+                number = number.toString().split("").reduce((sum, digit) => sum + parseInt(digit), 0);
+            }
+            return number;
+        }
+
+        document.getElementById('numerologyForm').onsubmit = function(event) {
+            event.preventDefault();
+            const birthDate = document.getElementById('birthDate').value;
+            const lifePathNumber = calculateLifePath(birthDate);
+            document.getElementById('result').innerText = `Your Life Path Number is ${lifePathNumber}`;
+        };
+    </script>
+</body>
+</html>
